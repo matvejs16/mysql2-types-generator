@@ -8,7 +8,7 @@ module.exports = {
     library: {
       name: 'index',
       type: 'umd',
-      export: 'generateDatabaseTSFile'
+      export: 'default'
     },
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),

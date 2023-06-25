@@ -22,7 +22,7 @@ import { generateDatabaseTSFile } from 'mysql2-types-generator'
 ## Create database connection
 ```javascript
 DB.Connect(() => {
-    await generateDatabaseTSFile('database-name', 'path/to/newtsfile/') // path/to/newtsfile/ is optional
+    await generateDatabaseTSFile(DB, 'database-name', 'path/to/newtsfile/') // path/to/newtsfile/ is optional
     // default path is ./Data/types/
     // types filename is DBTypes.database-name.ts
 });

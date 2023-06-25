@@ -8,10 +8,10 @@ import chalk from "chalk"
 const filePathData = path.join(__dirname, "./Data")
 const filePathDefault = path.join(filePathData, "./types")
 
-export async function generateDatabaseTSFile(DBName: string, filesPath: string = filePathDefault) {
-	if (!DB.Handle_Promise) return console.log(`[${chalk.red("DB")} ${chalk.cyan("Types")}] Database not connected`)
+export default async function generateDatabaseTSFile(DBInstance: typeof DB, DBName: string, filesPath: string = filePathDefault) {
+	if (!DBInstance.Handle_Promise) return console.log(`[${chalk.red("DB")} ${chalk.cyan("Types")}] Database not connected`)
 	console.log(`[${chalk.cyan("DB")} ${chalk.cyan("Types")}] Generating DBTypes file...`)
-	const [tables]: [RowDataPacket[], FieldPacket[]] = await DB.Handle_Promise.query(`SHOW TABLES FROM ${DBName}`)
+	const [tables]: [RowDataPacket[], FieldPacket[]] = await DBInstance.Handle_Promise.query(`SHOW TABLES FROM ${DBName}`)
 	const tableNames = tables.map((table: any) => {
 		const tableName = table[Object.keys(table)[0]]
 		return tableName as string
@@ -19,7 +19,7 @@ export async function generateDatabaseTSFile(DBName: string, filesPath: string =
 
 	const tableTypes: string[] = []
 	for (const tableName of tableNames) {
-		const [tableFields]: [RowDataPacket[], FieldPacket[]] = await DB.Handle_Promise.query(`SHOW COLUMNS FROM ${DBName}.${tableName}`)
+		const [tableFields]: [RowDataPacket[], FieldPacket[]] = await DBInstance.Handle_Promise.query(`SHOW COLUMNS FROM ${DBName}.${tableName}`)
 
 		const fields = tableFields.map((field: any) => {
 			const fieldName = field["Field"]

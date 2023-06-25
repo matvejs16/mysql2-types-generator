@@ -1,7 +1,7 @@
 {
   "name": "mysql2-types-generator",
   "repository": "matvejs16/mysql2-types-generator",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "mysql2-handler": "^1.0.1"
+    "mysql2-handler": "^1.0.4"
   },
   "bugs": {
     "url": "https://github.com/matvejs16/mysql2-types-generator/issues"
