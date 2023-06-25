@@ -14,9 +14,9 @@ import DB from 'mysql2-handler';
 
 ## Import this package
 ```javascript
-const { generateDatabaseTSFile } = require('mysql2-types-generator')
+const generateDatabaseTSFile = require('mysql2-types-generator')
 // OR
-import { generateDatabaseTSFile } from 'mysql2-types-generator'
+import generateDatabaseTSFile from 'mysql2-types-generator'
 ```
 
 ## Create database connection
