@@ -29,7 +29,7 @@ export default async function generateDatabaseTSFile(DBInstance: typeof DB, DBNa
             const fieldTypeOnly = fieldType.replace(/\(.+\)/, "").replace("unsigned", "").trim()
             const thisFieldType = getColumnDataType(fieldTypeOnly) + fieldNull
 
-			return `${fieldName}: ${thisFieldType}`
+			return `"${fieldName}": ${thisFieldType}`
 		})
 		tableTypes.push(`export interface ${tableName}Object { ${fields.join(", ")} }`)
 		tableTypes.push(`export type join_${tableName}Object = { [K in keyof ${tableName}Object as \`${tableName}:\${K}\`]: ${tableName}Object[K] }`)
