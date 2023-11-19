@@ -29,7 +29,13 @@ export default async function generateDatabaseTSFile(DBInstance: typeof DB, DBNa
             const fieldTypeOnly = fieldType.replace(/\(.+\)/, "").replace("unsigned", "").trim()
             const thisFieldType = getColumnDataType(fieldTypeOnly) + fieldNull
 
-			return `"${fieldName}": ${thisFieldType}`
+			let fieldNameString = fieldName
+			// check if field name have special characters
+			if (fieldName.match(/[^a-zA-Z0-9_]/)) {
+				fieldNameString = `"${fieldName}"`
+			}
+
+			return `${fieldNameString}: ${thisFieldType}`
 		})
 		tableTypes.push(`export interface ${tableName}Object { ${fields.join(", ")} }`)
 		tableTypes.push(`export type join_${tableName}Object = { [K in keyof ${tableName}Object as \`${tableName}:\${K}\`]: ${tableName}Object[K] }`)
