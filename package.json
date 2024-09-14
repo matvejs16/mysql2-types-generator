@@ -1,7 +1,10 @@
 {
   "name": "mysql2-types-generator",
-  "repository": "matvejs16/mysql2-types-generator",
-  "version": "1.0.12",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matvejs16/mysql2-types-generator.git"
+  },
+  "version": "1.0.13",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -14,8 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3",
-    "webpack": "^5.90.2",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
