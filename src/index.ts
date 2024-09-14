@@ -56,7 +56,6 @@ function getColumnDataType(dataType: string | null): string {
 		case "smallint":
 		case "mediumint":
 		case "bigint":
-		case "decimal":
 		case "float":
 		case "double":
 		case "numeric":
@@ -67,6 +66,7 @@ function getColumnDataType(dataType: string | null): string {
 		case "text":
 		case "mediumtext":
 		case "longtext":
+		case "decimal":
 			return "string";
 
 		case "date":
