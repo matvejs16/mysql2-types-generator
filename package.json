@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git+https://github.com/matvejs16/mysql2-types-generator.git"
   },
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
