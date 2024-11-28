@@ -22,12 +22,16 @@ export default async function generateDatabaseTSFile(DBInstance: typeof DB, DBNa
 		const [tableFields]: [RowDataPacket[], FieldPacket[]] = await DBInstance.Handle_Promise.query(`SHOW COLUMNS FROM \`${DBName}\`.\`${tableName}\``)
 
 		const fields = tableFields.map((field: any) => {
-			const fieldName = field["Field"]
-			const fieldType = field["Type"]
+			const fieldName = field["Field"] as string
+			const fieldType = field["Type"] as string
 			const fieldNull = field["Null"] === "YES" ? " | null" : ""
 
-            const fieldTypeOnly = fieldType.replace(/\(.+\)/, "").replace("unsigned", "").trim()
-            const thisFieldType = getColumnDataType(fieldTypeOnly) + fieldNull
+			const fieldBracketContent = fieldType.match(/\((.+)\)/);
+			const fieldBracketContentString = fieldBracketContent ? fieldBracketContent[1] : undefined
+			const fieldTypeOnly = fieldType.replace(/\(.+\)/, "").replace("unsigned", "").trim()
+			
+			const thisFieldType = getColumnDataType(fieldTypeOnly, fieldBracketContentString) + fieldNull
+			// console.log('fieldName:', fieldName, 'fieldType:', fieldType, 'fieldNull:', fieldNull, 'fieldBracketContent:', fieldBracketContentString)
 
 			let fieldNameString = fieldName
 			// check if field name have special characters
@@ -50,7 +54,7 @@ export default async function generateDatabaseTSFile(DBInstance: typeof DB, DBNa
     console.log(`[${chalk.cyan("DB")} ${chalk.cyan("Types")}] Finished generating DBTypes file`)
 }
 
-function getColumnDataType(dataType: string | null): string {
+function getColumnDataType(dataType: string | null, bracketContent?: string): string {
     switch (dataType) {
 		case "int":
 		case "smallint":
@@ -96,6 +100,10 @@ function getColumnDataType(dataType: string | null): string {
 			return "any";
 
 		case "set":
+			return "string";
+
+		case "enum":
+			if (bracketContent) return bracketContent.split(",").join(" | ");
 			return "string";
 
 		default:
